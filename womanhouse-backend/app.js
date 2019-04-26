@@ -21,6 +21,8 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
+mongoose.set('useFindAndModify', false);
+
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
@@ -80,6 +82,12 @@ passportSetup(app);
 
 const index = require('./routes/index');
 app.use('/', index);
+
+const songRoutes = require('./routes/song-routes');
+app.use('/api', songRoutes);
+
+const authRoutes = require('./routes/auth-routes');
+app.use('/api', authRoutes);
 
 
 

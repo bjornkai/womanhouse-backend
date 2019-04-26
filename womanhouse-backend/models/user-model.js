@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     // DOCUMENT STRUCTURE AND RULES ARE DEFINED HERE
-    fullName: {
-      type: String,
-      required: true,
-      minlength: 2
-    },
     email: {
       type: String,
       required: true,
