@@ -25,41 +25,41 @@ router.get('/gallery', (req, res, next) => {
   .catch(err => next(err));
 })
 
-// router.post('/gallery/:imageId/update', (req, res, next) => {
-// console.log(req.body);
-//   const { image, description, addedBy } = req.body;
+router.post('/gallery/:imageId/update', (req, res, next) => {
+console.log(req.body);
+  const { image, description, addedBy } = req.body;
 
-//   const updatedImage = { // <---------------------------------------
-//     image,                                                      //  |
-//     description,
-//     addedBy,                                                    //  |
-//     owner: req.user._id	                                        //  |
-//   }                                                             //  |                                                         //  |
-//   Image.findByIdAndUpdate(req.params.imageId, req.body) // <---------
-//   .then( theUpdatedImage => {
-//     res.json(theUpdatedImage);
-//   } )
-//   .catch( err => next(err) )
-// })
+  const updatedImage = { // <---------------------------------------
+    image,                                                      //  |
+    description,
+    addedBy,                                                    //  |
+    owner: req.user._id	                                        //  |
+  }                                                             //  |                                                         //  |
+  Image.findByIdAndUpdate(req.params.imageId, req.body) // <---------
+  .then( theUpdatedImage => {
+    res.json(theUpdatedImage);
+  } )
+  .catch( err => next(err) )
+})
 
-// // DELETE A SPECIFIC IMAGE
+// DELETE A SPECIFIC IMAGE
 
-// router.post('/gallery/:id/delete', (req, res, next) => {
-//   Image.findByIdAndDelete(req.params.id)
-//   .then(() => {
-//     res.json('/gallery');
-//   })
-//   .catch(err => next(err));
-// })
+router.post('/gallery/:id/delete', (req, res, next) => {
+  Image.findByIdAndDelete(req.params.id)
+  .then(() => {
+    res.json('/gallery');
+  })
+  .catch(err => next(err));
+})
 
 
-// function isLoggedIn(req, res, next){
-//   if(req.user){
-//     next();
-//   } else  {
-//     req.flash('error', 'You need to log in in order to access the page.')
-//     res.json('/login');
-//   }
-// }
+function isLoggedIn(req, res, next){
+  if(req.user){
+    next();
+  } else  {
+    req.flash('error', 'You need to log in in order to access the page.')
+    res.json('/login');
+  }
+}
 
 module.exports = router;
