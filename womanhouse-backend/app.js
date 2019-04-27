@@ -89,6 +89,15 @@ app.use('/api', songRoutes);
 const authRoutes = require('./routes/auth-routes');
 app.use('/api', authRoutes);
 
+const showRoutes = require('./routes/show-routes');
+app.use('/api', showRoutes);
+
+const galleryRoutes = require('./routes/image-routes');
+app.use('/api', galleryRoutes);
+
+const fileUploadRoutes = require('./routes/file-upload-routes');
+app.use('/api', fileUploadRoutes);
+
 
 
 module.exports = app;

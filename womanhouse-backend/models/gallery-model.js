@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const gallerySchema = new mongoose.Schema({
-  image: { type: String, required: true },
-  description: { type: String, required: true },
-  addedBy: { type: Schema.Types.ObjectId, ref: "User" }
+  image: { type: String },
+  description: { type: String },
+  addedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   }, {
     timestamps: true
 });
