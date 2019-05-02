@@ -4,7 +4,7 @@ const Song = require('../models/song-model');
 
 router.post('/songs', (req, res, next) => {
   const { title, author, lyrics } = req.body;
-
+  console.log(req.body);
   if(title == '' || author == '' || lyrics ==''){
     // send error JSON if any of the fields is empty
     res.status(401).json({ message: "All fields need to be filled" })
