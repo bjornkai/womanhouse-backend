@@ -25,33 +25,31 @@ router.get('/gallery', (req, res, next) => {
   .catch(err => next(err));
 })
 
-router.post('/gallery/:imageId/update', (req, res, next) => {
-console.log(req.body);
-  const { image, description, addedBy } = req.body;
+// -------~~~~~~~~~~------------   UPDATE IMAGE  -----------~~~~~~~~~~-------------
 
-  const updatedImage = { // <---------------------------------------
-    image,                                                      //  |
-    description,
-    addedBy,                                                    //  |
-    owner: req.user._id	                                        //  |
-  }                                                             //  |                                                         //  |
-  Image.findByIdAndUpdate(req.params.imageId, req.body) // <---------
-  .then( theUpdatedImage => {
-    res.json(theUpdatedImage);
-  } )
-  .catch( err => next(err) )
-})
-
-// DELETE A SPECIFIC IMAGE
-
-router.post('/gallery/:id/delete', (req, res, next) => {
-  Image.findByIdAndDelete(req.params.id)
-  .then(() => {
-    res.json('/gallery');
-  })
+// PUT /gallery/:id - Update ONE image
+router.put("/gallery/:id", (req, res, next) => {
+  const { id } = req.params;
+  const { image, description } = req.body;
+  
+  // Image.findByIdAndUpdate(id, req.body)
+  Image.findByIdAndUpdate(
+    id,
+    { $set: { image, description } }
+  )
+  .then(imageDoc => res.json(imageDoc))
   .catch(err => next(err));
-})
+});
 
+// -------~~~~~~~~~~------------   DELETE IMAGE  -----------~~~~~~~~~~-------------
+
+// DELETE /gallery/:id - Delete ONE image
+router.delete("/gallery/:id", (req, res, next) => {
+  const { id } = req.params;
+  Image.findByIdAndRemove(id)
+    .then(imageDoc => res.json({message: `You successfully deleted ${imageDoc.image}`}))
+    .catch(err => next(err));
+});
 
 function isLoggedIn(req, res, next){
   if(req.user){
@@ -63,3 +61,4 @@ function isLoggedIn(req, res, next){
 }
 
 module.exports = router;
+

@@ -24,34 +24,32 @@ router.get('/shows', (req, res, next) => {
   .catch(err => next(err));
 })
 
-router.post('/shows/:showId/update', (req, res, next) => {
-console.log(req.body);
+// -------~~~~~~~~~~------------   UPDATE SHOW  -----------~~~~~~~~~~-------------
+
+// PUT /shows/:id - Update ONE show
+router.put("/shows/:id", (req, res, next) => {
+  const { id } = req.params;
   const { name, date, location, price } = req.body;
-
-  const updatedShow = { // <---------------------------------------
-    name,                                                         //  |
-    date,
-    location,
-    price                                                  //  |
-    // owner: req.user._id	                                          //  |
-  }                                                               //  |                                                         //  |
-  Show.findByIdAndUpdate(req.params.showId, req.body) // <----------
-  .then( theUpdatedShow => {
-    res.json(theUpdatedShow);
-  } )
-  .catch( err => next(err) )
-})
-
-// DELETE A SPECIFIC SHOW
-
-router.post('/shows/:id/delete', (req, res, next) => {
-  Show.findByIdAndDelete(req.params.id)
-  .then(() => {
-    res.json('/shows');
-  })
+  
+  // Show.findByIdAndUpdate(id, req.body)
+  Show.findByIdAndUpdate(
+    id,
+    { $set: { name, date, location, price } }
+  )
+  .then(showDoc => res.json(showDoc))
   .catch(err => next(err));
-})
+});
 
+// -------~~~~~~~~~~------------   DELETE SHOW  -----------~~~~~~~~~~-------------
+
+// DELETE /shows/:id - Delete ONE show
+
+router.delete("/shows/:id", (req, res, next) => {
+  const { id } = req.params;
+  Show.findByIdAndRemove(id)
+    .then(showDoc => res.json({message: `You successfully deleted ${showDoc.name}`}))
+    .catch(err => next(err));
+});
 
 function isLoggedIn(req, res, next){
   if(req.user){

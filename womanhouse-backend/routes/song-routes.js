@@ -4,7 +4,7 @@ const Song = require('../models/song-model');
 
 router.post('/songs', (req, res, next) => {
   const { title, author, lyrics } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   if(title == '' || author == '' || lyrics ==''){
     // send error JSON if any of the fields is empty
     res.status(401).json({ message: "All fields need to be filled" })
@@ -24,33 +24,30 @@ router.get('/songs', (req, res, next) => {
   .catch(err => next(err));
 })
 
-router.post('/songs/:songId/update', (req, res, next) => {
-console.log(req.body);
+// -------~~~~~~~~~~------------   UPDATE AND DELETE SONG  -----------~~~~~~~~~~-------------
+
+// PUT /songs/:id - Update ONE song
+router.put("/songs/:id", (req, res, next) => {
+  const { id } = req.params;
   const { title, author, lyrics } = req.body;
-
-  const updatedSong = { // <---------------------------------------
-    title,                                                         //  |
-    author,
-    lyrics                                                  //  |
-    // owner: req.user._id	                                          //  |
-  }                                                               //  |                                                         //  |
-  Song.findByIdAndUpdate(req.params.songId, req.body) // <----------
-  .then( theUpdatedSong => {
-    res.json(theUpdatedSong);
-  } )
-  .catch( err => next(err) )
-})
-
-// DELETE A SPECIFIC SONG 
-
-router.post('/songs/:id/delete', (req, res, next) => {
-  Song.findByIdAndDelete(req.params.id)
-  .then(() => {
-    res.json('/songs');
-  })
+  
+  // Song.findByIdAndUpdate(id, req.body)
+  Song.findByIdAndUpdate(
+    id,
+    { $set: { title, author, lyrics } }
+  )
+  .then(songDoc => res.json(songDoc))
   .catch(err => next(err));
-})
+});
 
+
+// DELETE /songs/:id - Delete ONE song
+router.delete("/songs/:id", (req, res, next) => {
+  const { id } = req.params;
+  Song.findByIdAndRemove(id)
+    .then(songDoc => res.json({message: `You successfully deleted ${songDoc.title}`}))
+    .catch(err => next(err));
+});
 
 function isLoggedIn(req, res, next){
   if(req.user){
@@ -62,3 +59,4 @@ function isLoggedIn(req, res, next){
 }
 
 module.exports = router;
+
