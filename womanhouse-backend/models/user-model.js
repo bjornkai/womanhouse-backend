@@ -8,7 +8,12 @@ const userSchema = new Schema({
       type: String,
       required: true,
       unique: true,
-      match: /^.+@.+\..+$/
+      match: /^.+@.+\..+$/,
+      enum: ['bjornkairoland@gmail.com',
+             'steve.montoya.93@gmail.com',
+             'emilyafre@gmail.com',
+             'andresnunez98@gmail.com'
+      ],
     },
     encryptedPassword: { 
       type: String, 

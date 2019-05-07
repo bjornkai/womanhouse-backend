@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const Schema = mongoose.Schema;
+
 const gallerySchema = new mongoose.Schema({
   image: { type: String },
   description: { type: String },

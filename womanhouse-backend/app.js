@@ -49,7 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
-
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
 
@@ -78,8 +77,6 @@ app.use(session({
 // 🎯🎯🎯 MUST COME AFTER SESSION: 🎯🎯🎯
 passportSetup(app);
 
-
-
 const index = require('./routes/index');
 app.use('/', index);
 
@@ -98,6 +95,10 @@ app.use('/api', galleryRoutes);
 const fileUploadRoutes = require('./routes/file-upload-routes');
 app.use('/api', fileUploadRoutes);
 
-
+// entrance point to the react app from the backend
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;

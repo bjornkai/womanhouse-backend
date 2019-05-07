@@ -37,7 +37,10 @@ router.post("/signup", (req, res, next) => {
             res.json({ userDoc });
           });
       })
-      .catch( err => next(err)); //closing User.create()
+      .catch( err => { 
+        // res.json({message: "You cannot access this feature."})
+        res.status(401).send("You are not able to access this feature."); //closing User.create()
+      })
   })
   .catch( err => next(err)); // closing User.findOne();
 })
