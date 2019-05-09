@@ -24,17 +24,26 @@ router.get('/shows', (req, res, next) => {
   .catch(err => next(err));
 })
 
+// GET /shows/:id - GET THE DETAILS OF ONLY ONE SHOW
+
+router.get("/shows/:id", (req, res, next) => {
+  const { id } = req.params;
+  Show.findById(id)
+    .then(showDoc => res.json(showDoc))
+    .catch(err => next(err));
+});
+
 // -------~~~~~~~~~~------------   UPDATE SHOW  -----------~~~~~~~~~~-------------
 
 // PUT /shows/:id - Update ONE show
 router.put("/shows/:id", (req, res, next) => {
   const { id } = req.params;
   const { name, date, location, price } = req.body;
-  
+  console.log(req.body, req.params);
   // Show.findByIdAndUpdate(id, req.body)
   Show.findByIdAndUpdate(
     id,
-    { $set: { name, date, location, price } }
+   { name, date, location, price } 
   )
   .then(showDoc => res.json(showDoc))
   .catch(err => next(err));

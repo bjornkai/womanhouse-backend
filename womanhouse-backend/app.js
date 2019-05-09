@@ -63,7 +63,7 @@ app.use(function (req, res, next) {
 app.use(cors({
   credentials: true,
   origin:  'http://localhost:3000',
-  methods: ["GET", "POST", "DELETE"]
+  methods: ["GET", "POST", "DELETE", "PUT"]
 }));
 
 // HANDLE SESSIONS HERE:
