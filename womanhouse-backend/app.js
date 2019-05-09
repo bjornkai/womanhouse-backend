@@ -12,14 +12,23 @@ const session      = require('express-session');
 const passportSetup =  require('./config/passport/passport-setup');
 const cors = require('cors');
 
+// mongoose
+//   .connect('mongodb://localhost/womanhouse-backend', {useNewUrlParser: true})
+//   .then(x => {
+//     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+//   })
+//   .catch(err => {
+//     console.error('Error connecting to mongo', err)
+//   });
 mongoose
-  .connect('mongodb://localhost/womanhouse-backend', {useNewUrlParser: true})
+  .connect('mongodb://heroku_dh5ql4sl:lnvepabre86akoi30muu53uhqv@ds237989.mlab.com:37989/heroku_dh5ql4sl', {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
   .catch(err => {
     console.error('Error connecting to mongo', err)
   });
+
 
 mongoose.set('useFindAndModify', false);
 
