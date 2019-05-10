@@ -12,8 +12,16 @@ const session      = require('express-session');
 const passportSetup =  require('./config/passport/passport-setup');
 const cors = require('cors');
 
+// mongoose
+//   .connect('mongodb://localhost/womanhouse-backend', {useNewUrlParser: true})
+//   .then(x => {
+//     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
+//   })
+//   .catch(err => {
+//     console.error('Error connecting to mongo', err)
+//   });
 mongoose
-  .connect('mongodb://localhost/womanhouse-backend', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
