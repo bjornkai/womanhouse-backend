@@ -88,8 +88,8 @@ app.use(session({
 // 🎯🎯🎯 MUST COME AFTER SESSION: 🎯🎯🎯
 passportSetup(app);
 
-const index = require('./routes/index');
-app.use('/', index);
+//const index = require('./routes/index');
+//app.use('/', index);
 
 const songRoutes = require('./routes/song-routes');
 app.use('/api', songRoutes);
