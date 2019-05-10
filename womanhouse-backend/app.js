@@ -73,7 +73,7 @@ app.use(function (req, res, next) {
 
 app.use(cors({
   credentials: true,
-  origin:  'http://womanhousetheband.heroku-app.com',
+  origin:  'http://womanhousetheband.herokuapp.com',
   methods: ["GET", "POST", "DELETE", "PUT"]
 }));
 
