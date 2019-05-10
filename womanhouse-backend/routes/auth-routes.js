@@ -88,6 +88,8 @@ router.delete("/logout", (req, res, next) => {
 // (a) if we are logged-in
 // (b) what are the details of the logged-in user
 router.get("/checkuser", (req, res, next) => {
+  console.log(req.user);
+  console.log(req.body);
   if (req.user) {
   // hide "encryptedPassword" before sending the JSON (it's a security risk)
     req.user.encryptedPassword = undefined;
