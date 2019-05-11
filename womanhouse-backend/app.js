@@ -76,12 +76,13 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
 
 app.use(cors({
   credentials: true,
-  origin:  'http://womanhousetheband.herokuapp.com',
+  origin:  'http://localhost:3000', //needs to be womanhouse for deploying to heroku
   methods: ["GET", "POST", "DELETE", "PUT"]
 }));
 
